@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Project;
-use Illuminate\Http\Request;
 
 class ProjectsController extends Controller
 {
@@ -14,9 +13,9 @@ class ProjectsController extends Controller
     return view('projects.index', compact('projects'));
   }
 
-  public function show()
+  public function show(Project $project)
   {
-    
+    return view('projects.show', compact('project'));
   }
 
   public function create()
@@ -26,12 +25,7 @@ class ProjectsController extends Controller
 
   public function store()
   {
-    $project = new Project();
-
-    $project->title = request('title');
-    $project->description = request('description');
-
-    $project->save();
+    Project::create(request(['title', 'description']));
 
     return redirect('/projects');
   }
@@ -43,10 +37,7 @@ class ProjectsController extends Controller
 
   public function update(Project $project)
   { 
-    $project->title = request('title');
-    $project->description = request('description');
-
-    $project->save();
+    $project->update(request(['title', 'description']));
 
     return redirect('/projects');
   }
