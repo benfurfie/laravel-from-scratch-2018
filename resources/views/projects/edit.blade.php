@@ -9,7 +9,7 @@
     <div class="max-w-sm">
       <form method="POST" action="/projects/{{ $project->id }}" id="edit">
         @csrf
-        {{ method_field('PATCH') }}
+        @method('PATCH')
 
         @foreach ($errors->all() as $error)
           <div class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 rounded relative mb-6" role="alert">

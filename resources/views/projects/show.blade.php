@@ -7,6 +7,23 @@
     </header>
     <div class="mb-10">
       <p>{{ $project->description }}</p>
+      @if($project->tasks->count())
+        <hr class="border-b mt-10 mb-4">
+        <ul class="list-reset max-w-sm">
+          @foreach ($project->tasks as $task)
+            <li class="leading-loose">
+              <form action="/tasks/{{ $task->id }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <label class="flex items-center cursor-pointer" for="completed">
+                  <input type="checkbox" name="completed" id="completed" onChange="this.form.submit() " {{ $task->completed ? 'checked' : '' }}>
+                  <span class="ml-2{{ $task->completed ? ' line-through' : '' }}">{{ $task->description }}</span>
+                </label>
+              </form>
+            </li>
+          @endforeach
+        </ul>
+      @endif
     </div>
     <footer class="flex">
         <a class="bg-blue-light hover:bg-blue inline-block text-white font-bold py-2 px-4 rounded-sm cursor-pointer no-underline" href="/projects/{{ $project->id }}/edit">
