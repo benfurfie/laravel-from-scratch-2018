@@ -10,15 +10,22 @@
       <form method="POST" action="/projects/{{ $project->id }}" id="edit">
         @csrf
         {{ method_field('PATCH') }}
+
+        @foreach ($errors->all() as $error)
+          <div class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 rounded relative mb-6" role="alert">
+            <strong class="font-bold">Whoops!</strong>
+            <span class="block sm:inline">{{ $error }}</span>
+          </div>
+        @endforeach
         
         <label class="flex flex-col mb-4">
           <span class="block mb-2">Project title</span>
-          <input class="border-b border-grey pb-2" type="text" name="title" value="{{ $project->title }}">
+          <input class="border-b {{ $errors->has('title') ? 'border-red' : 'border-grey' }} pb-2" type="text" name="title" value="{{ $project->title }}" required>
         </label>
 
         <label class="flex flex-col mb-4">
           <span class="block mb-2">Project description</span>
-          <textarea class="border-b border-grey pb-2" name="description">{{ $project->description }}</textarea>
+          <textarea class="border-b {{ $errors->has('description') ? 'border-red' : 'border-grey' }} pb-2" name="description" required>{{ $project->description }}</textarea>
         </label>
       </form>
       <form method="POST" action="/projects/{{ $project->id }}" id="delete">
