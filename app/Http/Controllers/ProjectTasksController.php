@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Task;
-use Illuminate\Http\Request;
+use App\Project;
 
 class ProjectTasksController extends Controller
 {
@@ -12,6 +12,19 @@ class ProjectTasksController extends Controller
     $task->update([
       'completed' => request()->has('completed')
     ]);
+
+    return back();
+  }
+
+  public function store(Project $project)
+  {
+    $attributes = request()->validate(['description' => 'required|max:255']);
+    $project->addTask($attributes);
+
+    // Task::create([
+    //   'project_id' => $project->id,
+    //   'description' => request('description'),
+    // ]);
 
     return back();
   }

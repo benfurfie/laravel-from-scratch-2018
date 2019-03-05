@@ -9,12 +9,7 @@
     <form method="POST" action="/projects" class="max-w-sm">
       @csrf
 
-      @foreach ($errors->all() as $error)
-        <div class="bg-red-lightest border border-red-light text-red-dark px-4 py-3 rounded relative mb-6" role="alert">
-          <strong class="font-bold">Whoops!</strong>
-          <span class="block sm:inline">{{ $error }}</span>
-        </div>
-      @endforeach
+      @include('errors')
       
       <label class="flex flex-col mb-4">
         <span class="block mb-2">Project title</span>

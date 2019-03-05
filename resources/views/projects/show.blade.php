@@ -15,8 +15,8 @@
               <form action="/tasks/{{ $task->id }}" method="POST">
                 @csrf
                 @method('PATCH')
-                <label class="flex items-center cursor-pointer" for="completed">
-                  <input type="checkbox" name="completed" id="completed" onChange="this.form.submit() " {{ $task->completed ? 'checked' : '' }}>
+                <label class="flex items-center cursor-pointer" for="completed-{{ $task->id }}">
+                  <input type="checkbox" name="completed" id="completed-{{ $task->id }}" onChange="this.form.submit() " {{ $task->completed ? 'checked' : '' }}>
                   <span class="ml-2{{ $task->completed ? ' line-through' : '' }}">{{ $task->description }}</span>
                 </label>
               </form>
@@ -37,6 +37,19 @@
           Delete
         </button>
     </footer>
+  </div>
+  <div class="container mx-auto">
+    @include('errors')
+    <form action="/projects/{{ $project->id }}/tasks" method="POST">
+      @csrf
+      <div class="flex flex-row">
+        <label for="description" class="flex flex-col w-64">
+          <span class="mb-2 cursor-pointer">Add a new task</span>
+          <input class="border-b border-grey pb-2" type="text" id="description" name="description" required>
+        </label>
+        <button type="submit" class="bg-orange-dark hover:bg-orange-dark inline-block text-white font-bold py-2 px-10 rounded-sm cursor-pointer no-underline">Add</button>
+      </div>
+    </form>
   </div>
 @endsection
 
