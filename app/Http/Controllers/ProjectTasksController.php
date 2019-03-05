@@ -7,15 +7,7 @@ use App\Project;
 
 class ProjectTasksController extends Controller
 {
-  public function update(Task $task)
-  {
-    $task->update([
-      'completed' => request()->has('completed')
-    ]);
-
-    return back();
-  }
-
+  
   public function store(Project $project)
   {
     $attributes = request()->validate(['description' => 'required|max:255']);
@@ -25,6 +17,15 @@ class ProjectTasksController extends Controller
     //   'project_id' => $project->id,
     //   'description' => request('description'),
     // ]);
+
+    return back();
+  }
+
+  public function update(Task $task)
+  {
+    // Dynamically call the method
+    $method = request()->has('completed') ? 'complete' : 'incomplete';
+    $task->method();
 
     return back();
   }
