@@ -12,9 +12,11 @@
         <ul class="list-reset max-w-sm">
           @foreach ($project->tasks as $task)
             <li class="leading-loose">
-              <form action="/tasks/{{ $task->id }}" method="POST">
+              <form action="/completed-tasks/{{ $task->id }}" method="POST">
+                @if($task->completed)
+                  @method('DELETE')
+                @endif
                 @csrf
-                @method('PATCH')
                 <label class="flex items-center cursor-pointer" for="completed-{{ $task->id }}">
                   <input type="checkbox" name="completed" id="completed-{{ $task->id }}" onChange="this.form.submit() " {{ $task->completed ? 'checked' : '' }}>
                   <span class="ml-2{{ $task->completed ? ' line-through' : '' }}">{{ $task->description }}</span>

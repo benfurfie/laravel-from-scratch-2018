@@ -25,7 +25,7 @@ class ProjectTasksController extends Controller
   {
     // Dynamically call the method
     $method = request()->has('completed') ? 'complete' : 'incomplete';
-    $task->method();
+    $task->$method();
 
     return back();
   }
