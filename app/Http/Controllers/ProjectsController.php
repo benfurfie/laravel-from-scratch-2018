@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Services\Textlocal;
 
 class ProjectsController extends Controller
 {
@@ -12,9 +13,11 @@ class ProjectsController extends Controller
 
     return view('projects.index', compact('projects'));
   }
-
-  public function show(Project $project)
+  
+  public function show(Project $project, Textlocal $textlocal)
   {
+    // $textlocal = app('textlocal');
+    dd($textlocal);
     return view('projects.show', compact('project'));
   }
 

@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Filesystem\Filesystem;
+use App\Example;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +14,34 @@
 |
 */
 
+/**
+ * Example of how to call an instance of a class with an API
+ */
+app()->singleton('App\Services\Textlocal', function() {
+    return new \App\Services\Textlocal(config('services.textlocal.api_key'));
+});
+
+/**
+ * Add many into the service container
+ */
+// app()->bind('example', function() {
+//     return new \App\Example;
+// });
+
+// app()->bind('App\Example', function() {
+//     return new \App\Example;
+// });
+
+/**
+ * Add a single instance into the service container
+ */
+// app()->singleton('example', function() {
+//     return new \App\Example;
+// });
+
 Route::get('/', function () {
+    // dd(app('App\Example'));
+    // dd(app('example'), app('example'));
     return view('welcome');
 });
 
